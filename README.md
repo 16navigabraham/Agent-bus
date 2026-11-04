@@ -112,3 +112,16 @@ agent-bus-watch claude-main                                   # prints a line wh
 
 Only senders in `--allow-from` (default `claude-main`) may give tasks, because a task runs an
 agent with shell access. A task is marked read before it runs, so a crash mid-task loses it.
+
+**Reply status.** A task is sent with a line asking the agent to end with `TASK COMPLETE` or
+`TASK INCOMPLETE: <what is left>`. The reply starts with `completed`, `incomplete`, `failed (exit N)`,
+`exited without saying it was complete...` (the agent just stopped; check the output), or
+`timed out after Ns and was stopped`. On timeout the agent's whole process group is killed, so no
+child process keeps running with nobody to report to. The default `--timeout` is 3600 seconds.
+The reply holds the agent's answer; its tool trace is in note `result-<id>`.
+
+**Continuing sessions.** With `--keep-session`, each sender gets one OpenCode session that continues
+across tasks (found again by the title `bus:<worker>:<sender>`), so a sender doesn't repeat background
+it already gave. Start a task with `/new` to begin a fresh session. Without the flag every task is a
+fresh session. `--cwd-for SENDER=PATH` runs a sender's tasks in its own project folder. The headless
+agent runs under the bus name `<worker>-agent`, so it can't read an open tab's inbox.

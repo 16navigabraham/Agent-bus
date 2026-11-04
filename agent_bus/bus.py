@@ -166,6 +166,11 @@ def note_get(conn, key):
     return dict(row) if row else None
 
 
+def note_delete(conn, key):
+    """Remove a note. Used by the worker to drop a session link when a sender starts a fresh session."""
+    conn.execute("DELETE FROM notes WHERE key = ?", (key,))
+
+
 def note_list(conn):
     rows = conn.execute("SELECT key, author, updated FROM notes ORDER BY updated DESC").fetchall()
     return [dict(r) for r in rows]
