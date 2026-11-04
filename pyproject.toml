@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-bus"
+version = "0.1.0"
+description = "A local message bus that lets AI coding agents (Claude Code, OpenCode, Gemini CLI...) talk to each other on one machine."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = ["mcp>=2"]
+
+[project.scripts]
+agent-bus = "agent_bus.server:main"
+agent-bus-worker = "agent_bus.worker:worker"
+agent-bus-watch = "agent_bus.worker:watch"
+
+[tool.setuptools]
+packages = ["agent_bus"]
