@@ -3,7 +3,7 @@
 agent-bus-watch NAME   print one line for every new unread message to NAME (never marks them read).
                        Pipe it to notify-send, or run it as a Claude Code background monitor.
 agent-bus-worker NAME  take 'task' messages addressed to NAME, run each one through a headless
-                       agent command (default: opencode-router run), and reply with the result.
+                       agent command (default: opencode run), and reply with the result.
 
 Why a separate worker name (e.g. opencode-worker) and not "opencode"? The worker only takes tasks.
 If it shared the name with an interactive OpenCode window, that window's inbox call could grab them.
@@ -111,10 +111,10 @@ def worker(argv=None):
     p.add_argument("name", help="the bus name this worker listens on, e.g. opencode-worker")
     p.add_argument("--allow-from", action="append", default=None,
                    help="sender allowed to give tasks (repeatable; default: claude-main)")
-    p.add_argument("--cmd", default="opencode-router run", help="headless agent command; the task text is appended")
+    p.add_argument("--cmd", default="opencode run", help="headless agent command; the task text is appended")
     p.add_argument("--cwd", default=os.getcwd(), help="folder the agent runs in (default: current folder)")
     p.add_argument("--cwd-for", action="append", default=[], metavar="SENDER=PATH",
-                   help="folder to run in for tasks from SENDER, e.g. claude-asap=/home/me/code/ASAP (repeatable)")
+                   help="folder to run in for tasks from SENDER, e.g. claude-web=/home/me/code/web (repeatable)")
     p.add_argument("--keep-session", action="store_true",
                    help="one continuing OpenCode session per sender (needs an opencode-style CLI)")
     p.add_argument("--timeout", type=int, default=3600,
