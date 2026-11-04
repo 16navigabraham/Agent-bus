@@ -98,6 +98,10 @@ claude mcp add agent-bus -s user -e AGENT_BUS_NAME=claude-main -e AGENT_BUS_HARN
 
 MIT, see `LICENSE`.
 
+## Author
+
+Built by Adebanjo Abraham ([@AbrahamNAVIG1](https://x.com/AbrahamNAVIG1)).
+
 ## Delegating work: worker and watcher
 
 `agent-bus-worker NAME` takes `task` messages addressed to NAME, runs each through a headless
